@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Optimalkan Kode</title>
+</head>
+
+<body>
+      <div id="last-barcode"></div>
+
+      <script>
+            let barcode = '';
+            let timeout;
+
+            document.addEventListener('keydown', function (evt) {
+                  if (timeout) clearTimeout(timeout);
+                  if (evt.code === 'Enter') {
+                        if (barcode) handleBarcode(barcode);
+                        barcode = '';
+                        return;
+                  }
+                  // Append only if the key is a single character (ignoring control keys like Shift, NumLock, etc.)
+                  if (evt.key.length === 1) barcode += evt.key;
+                  // Increase timeout to 100 milliseconds
+                  timeout = setTimeout(() => { barcode = ''; }, 100);
+            });
+
+            function handleBarcode(scannedBarcode) {
+                  document.querySelector('#last-barcode').innerHTML = scannedBarcode;
+            }
+      </script>
+</body>
+
+</html>
